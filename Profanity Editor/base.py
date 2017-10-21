@@ -12,8 +12,14 @@ def read_text():
 def check_profanity(text_to_be_checked):
     quote = parse.quote_plus(text_to_be_checked)
     connection = ur.urlopen("http://www.wdylike.appspot.com/?q="+quote)
-    output = connection.read()
-    print(output)
+    output = connection.read().decode('utf-8')
     connection.close()
+    if "true" in output:
+        print("Profanity Alert")
+    elif "false" in output:
+        print("No Profanity Word")
+    else:
+        print("could not scan the documented")
+
 
 read_text()
